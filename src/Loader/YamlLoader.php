@@ -19,6 +19,7 @@
 namespace M1\Vars\Loader;
 
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 /**
  * The Yaml file loader
@@ -40,12 +41,12 @@ class YamlLoader extends AbstractLoader
     public function load()
     {
         try {
-            $this->content = Yaml::parse(file_get_contents($this->entity));
-        } catch (\Exception $e) {
+            $this->content = Yaml::parseFile($this->entity, Yaml::PARSE_CONSTANT);
+        } catch (ParseException $e) {
             throw new \RuntimeException(sprintf(
                 "%s threw an exception: %s",
                 $this->entity,
-                $e
+                $e->getMessage()
             ));
         }
 

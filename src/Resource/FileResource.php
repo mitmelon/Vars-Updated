@@ -21,6 +21,7 @@ namespace M1\Vars\Resource;
 use M1\Vars\Traits\FileTrait;
 use M1\Vars\Traits\ResourceFlagsTrait;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Path;
 
 /**
  * File Resource enables interaction with files as resources
@@ -104,7 +105,7 @@ class FileResource extends AbstractResource
         $base_path = $this->provider->vars->getPath();
 
         $filesystem = new Filesystem();
-        $abs_path = $filesystem->makePathRelative(
+        $abs_path = Path::makeRelative(
             $file,
             $base_path
         );
